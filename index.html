@@ -1,59 +1,108 @@
-﻿<!doctype html>
-<html data-ng-app="RTubeApp">
-  <head>
-    <meta charset="utf-8"> 
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
     <title>RTube</title>
     <meta name="author" content="H. Ali Karaca">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body data-ng-controller="VideoCtrl">
-    <header>
-      <h1>Juke<strong>Tube</strong></h1>
-      <form id="search" data-ng-submit="search()">
-        <input id="query" name="q" type="text" placeholder="Search for a YouTube video" data-ng-model="query">
-        <input id="submit" type="image" src="search.png" alt="Search">
-      </form>
-      <nav>
-        <a id="play">{{ youtube.state }}</a>
-        <a id="pause">Pause</a>
-      </nav>
-    </header>
-    <div id="results">
-      <div class="video" data-ng-repeat="video in results" data-ng-click="queue(video.id, video.title)">
-        <img class="video-image" data-ng-src="{{ video.thumbnail }}">
-        <p class="video-title">{{ video.title }}</p>
-        <p class="video-author">{{ video.author }}</p>
-        <p class="video-description">{{ video.description }}</p>
-      </div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="/assets/app.css" />
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body ng-app="RTubeApp" ng-cloak ng-controller="baseController">
+
+    <md-toolbar class="md-whiteframe-z2 " layout="row">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleCategoriesList()">
+                <md-icon md-svg-icon="assets/svg/menu.svg"></md-icon>
+            </md-button>
+            <h2>
+                <span>RTube</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="More">
+                <md-icon md-svg-icon="assets/svg/ic_more_vert_white_24px.svg"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div ng-controller="categoryController" layout="row" layout-align="center" layout-wrap>
+
+        <md-sidenav flex="20" class="site-sidenav md-sidenav-left md-whiteframe-z2"
+                    md-component-id="sideNavCategoryList" aria-label="Show User List"
+                    md-is-locked-open="$mdMedia('gt-sm')">
+
+            <md-subheader class="md-primary">Best of YouTube</md-subheader>
+            menu list
+            <md-list>
+                <md-list-item ng-repeat="it in cc.categories">
+                    <md-button ng-click="cc.selectUser(it)" ng-class="{'selected' : it === cc.selected }">
+                        {{it.name}}
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+
+
+        <div flex="80" class="md-whiteframe-z2">
+
+            <md-icon md-svg-icon="{{cc.selected.avatar}}" class="avatar"></md-icon>
+            <h2>{{cc.selected.name}}</h2>
+            <p>{{cc.selected.content}}</p>
+
+        </div>
+
     </div>
-    <div id="player">
-      <div id="placeholder"></div>
+
+    <!--<div ng-show="videoDetail != null">
+
     </div>
-    <div id="playlist">
-      <p id="current">{{ youtube.videoTitle }}</p>
-      <ol id="upcoming" data-ng-show="playlist">
-        <li data-ng-repeat="video in upcoming">
-          <p class="item-delete" data-ng-click="delete('upcoming', video.id)">delete</p>
-          <p class="item-title" data-ng-click="launch(video.id, video.title)">{{video.title}}</p>
-        </li>
-      </ol>
-      <ol id="history" data-ng-hide="playlist">
-        <li data-ng-repeat="video in history">
-          <p class="item-delete" data-ng-click="delete('history', video.id)">delete</p>
-          <p class="item-title" data-ng-click="queue(video.id, video.title)">{{video.title}}</p>
-        </li>
-      </ol>
-      <p id="tabs">
-        <a ng-class="{on:playlist}" data-ng-click="tabulate(true)">Upcoming</a>
-        <a ng-class="{on:!playlist}" data-ng-click="tabulate(false)">History</a>
-      </p>
-    </div>
-    <footer>
-      <em>Concept &amp; Design: <a href="http://www.hasanalikaraca.com">H. Ali Karaca</a></em>
-      Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/HasanAliKaraca/RTube">GitHub</a>.
-    </footer>
-    <script src="angular.min.js"></script>
-    <script src="angular-local-storage.js"></script>
-    <script src="app.js"></script>
-  </body>
+    <div ng-show="selectedCategory != null">
+
+    </div>-->
+    <!--selected category list-->
+
+
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script src="/app/baseController.js"></script>
+    <script src="/app/categories/categoryController.js"></script>
+    <script type="text/javascript">
+
+        //dont forget to pass new modules here
+        var app = angular.module('RTubeApp',
+                ['ngMaterial', 'base', 'category']);
+
+        app.config(function ($mdThemingProvider, $mdIconProvider) {
+
+            $mdIconProvider
+                .defaultIconSet("/assets/svg/avatars.svg", 128)
+                .icon("menu", "/assets/svg/menu.svg", 24)
+                .icon("share", "/assets/svg/share.svg", 24)
+                .icon("google_plus", "/assets/svg/google_plus.svg", 512)
+                .icon("hangouts", "/assets/svg/hangouts.svg", 512)
+                .icon("twitter", "/assets/svg/twitter.svg", 512)
+                .icon("phone", "/assets/svg/phone.svg", 512);
+
+            //$mdThemingProvider.theme('default')
+            //    .primaryPalette('brown')
+            //    .accentPalette('red');
+
+        });
+    </script>
+    <script src="http://www.youtube.com/iframe_api"></script>
+</body>
 </html>
