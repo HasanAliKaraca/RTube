@@ -35,7 +35,7 @@
               content: ''
           },
           {
-              name: '360° Video',
+              name: '360\u00B0 Video',
               avatar: 'svg-1',
               content: ''
           }
@@ -60,18 +60,22 @@
                     $scope.selected = angular.isNumber(category) ? $scope.categories[category] : category;
                 };
 
+
+                // Load all registered categories
+                categoriesService
+                      .getAllCategories()
+                      .then(function (categories) {
+                          console.log(categories);
+
+                          $scope.categories = [].concat(categories);
+                          $scope.selected = categories[0];
+                      });
+
                 //****************
                 //internal methods
                 //****************
                 var init = function () {
 
-                    // Load all registered categories
-                    categoriesService
-                          .getAllCategories()
-                          .then(function (categories) {
-                              $scope.categories = [].concat(categories);
-                              $scope.selected = categories[0];
-                          });
                 };
                 init();
             }

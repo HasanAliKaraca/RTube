@@ -36,18 +36,18 @@
         </div>
     </md-toolbar>
 
-    <div ng-controller="categoryController" layout="row" layout-align="center" layout-wrap>
+    <div ng-controller="categoryController as cc" layout="row" layout-align="center" layout-wrap>
 
         <md-sidenav flex="20" class="site-sidenav md-sidenav-left md-whiteframe-z2"
                     md-component-id="sideNavCategoryList" aria-label="Show User List"
                     md-is-locked-open="$mdMedia('gt-sm')">
-
             <md-subheader class="md-primary">Best of YouTube</md-subheader>
-            menu list
+            <md-divider ng-if="!$last"></md-divider>
+            <!--menu list-->
             <md-list>
-                <md-list-item ng-repeat="it in cc.categories">
-                    <md-button ng-click="cc.selectUser(it)" ng-class="{'selected' : it === cc.selected }">
-                        {{it.name}}
+                <md-list-item ng-repeat="it in categories">
+                    <md-button ng-click="selectUser(it)" ng-class="{'selected' : it === selected }">
+                        <span>{{it.name}}</span>
                     </md-button>
                 </md-list-item>
             </md-list>
@@ -56,9 +56,15 @@
 
         <div flex="80" class="md-whiteframe-z2">
 
-            <md-icon md-svg-icon="{{cc.selected.avatar}}" class="avatar"></md-icon>
-            <h2>{{cc.selected.name}}</h2>
-            <p>{{cc.selected.content}}</p>
+            <video controls="controls">
+                <source src="file.mp4" type="video/mp4" />
+                <source src="file.webm" type="video/webm" />
+                <source src="file.ogv" type="video/ogg" />
+            </video>
+
+            <!--<md-icon md-svg-icon="{{selected.avatar}}" class="avatar"></md-icon>
+            <h2>{{selected.name}}</h2>
+            <p>{{selected.content}}</p>-->
 
         </div>
 
