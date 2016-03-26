@@ -19,9 +19,9 @@
         }
     </style>
 </head>
-<body ng-app="RTubeApp" ng-cloak ng-controller="baseController">
+<body ng-app="RTubeApp" ng-cloak ng-controller="baseCtrl">
 
-    <md-toolbar class="md-whiteframe-z2 " layout="row">
+    <md-toolbar class="md-whiteframe-z2 "  >
         <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleCategoriesList()">
                 <md-icon md-svg-icon="assets/svg/menu.svg"></md-icon>
@@ -30,15 +30,15 @@
                 <span>RTube</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" aria-label="More">
+            <md-button class="md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
                 <md-icon md-svg-icon="assets/svg/ic_more_vert_white_24px.svg"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
 
-    <div ng-controller="categoryController as cc" layout="row" layout-align="center" layout-wrap>
+    <div ng-controller="categoryCtrl as cc"  layout-wrap layout="row">
 
-        <md-sidenav flex="20" class="site-sidenav md-sidenav-left md-whiteframe-z2"
+        <md-sidenav flex class="site-sidenav md-sidenav-left md-whiteframe-z2"
                     md-component-id="sideNavCategoryList" aria-label="Show User List"
                     md-is-locked-open="$mdMedia('gt-sm')">
             <md-subheader class="md-primary">Best of YouTube</md-subheader>
@@ -52,63 +52,26 @@
                 </md-list-item>
             </md-list>
         </md-sidenav>
-
-
-        <div flex="80" class="md-whiteframe-z2">
-
-            <video controls="controls">
-                <source src="file.mp4" type="video/mp4" />
-                <source src="file.webm" type="video/webm" />
-                <source src="file.ogv" type="video/ogg" />
-            </video>
-
-            <!--<md-icon md-svg-icon="{{selected.avatar}}" class="avatar"></md-icon>
-            <h2>{{selected.name}}</h2>
-            <p>{{selected.content}}</p>-->
-
+        <!--view body-->
+        <div flex class="md-whiteframe-z2" layout="row" layout-wrap ng-view>
+             
         </div>
 
     </div>
 
-    <!--<div ng-show="videoDetail != null">
-
-    </div>
-    <div ng-show="selectedCategory != null">
-
-    </div>-->
-    <!--selected category list-->
-
-
 
     <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-animate/angular-animate.js"></script>
-    <script src="/bower_components/angular-aria/angular-aria.js"></script>
-    <script src="/bower_components/angular-material/angular-material.js"></script>
-    <script src="/app/baseController.js"></script>
-    <script src="/app/categories/categoryController.js"></script>
-    <script type="text/javascript">
-
-        //dont forget to pass new modules here
-        var app = angular.module('RTubeApp',
-                ['ngMaterial', 'base', 'category']);
-
-        app.config(function ($mdThemingProvider, $mdIconProvider) {
-
-            $mdIconProvider
-                .defaultIconSet("/assets/svg/avatars.svg", 128)
-                .icon("menu", "/assets/svg/menu.svg", 24)
-                .icon("share", "/assets/svg/share.svg", 24)
-                .icon("google_plus", "/assets/svg/google_plus.svg", 512)
-                .icon("hangouts", "/assets/svg/hangouts.svg", 512)
-                .icon("twitter", "/assets/svg/twitter.svg", 512)
-                .icon("phone", "/assets/svg/phone.svg", 512);
-
-            //$mdThemingProvider.theme('default')
-            //    .primaryPalette('brown')
-            //    .accentPalette('red');
-
-        });
-    </script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
     <script src="http://www.youtube.com/iframe_api"></script>
+    <script src="app/modules/utilsModule.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/services/youtubeService.js"></script>
+    <script src="app/services/categoryService.js"></script>
+    <script src="app/controllers/viewController.js"></script>
+    <script src="app/controllers/categoryController.js"></script>
+    <script src="app/controllers/listController.js"></script>
 </body>
 </html>

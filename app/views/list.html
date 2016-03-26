@@ -1,0 +1,16 @@
+﻿<div flex class="md-whiteframe-z2">
+
+    <div>
+        <div class="fixed">
+            <!--<form class="search-form" ng-submit="location.path('/search/' + query)">
+                <input ng-model="query" type="text" placeholder="fluffy bunnies">
+                <button class="button small expand">Search YouTube</button>
+            </form>-->
+            <div ng-include src="'/app/views/' + section + '.html'"></div>
+        </div>
+    </div>
+    <div when-scrolled="loadVideos()">
+        <div ng-include src="'/app/views/videos.html'"></div>
+    </div>
+</div>
+

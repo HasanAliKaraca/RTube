@@ -1,0 +1,43 @@
+﻿<!--<div ng-repeat="video in videos" class="large-4 medium-6 columns">
+    <a ng-href="{{getLink(video)}}" class="toogles-video">
+        <h3><span>{{video.snippet.title}}</span></h3>
+        <img ng-src="{{video.snippet.thumbnails.high.url}}" />
+        <div class="duration">{{formatDuration(video.contentDetails.duration)}}</div>
+        <div class="rating">
+            <div class="like" style="width: {{averageRating(video.statistics.likeCount, video.statistics.dislikeCount)}}%;"></div>
+        </div>
+    </a>
+</div>-->
+<div layout="row" layout-wrap>
+    <div flex="33" ng-repeat="video in videos">
+        <md-card>
+            <a ng-href="{{getLink(video)}}">
+                <img ng-src="{{video.snippet.thumbnails.high.url}}" class="md-card-image" alt="Washed Out" style="background:black;width:100%;">
+            </a>
+            <md-card-title>
+                <md-card-title-text>
+                    <a ng-href="{{getLink(video)}}">
+                        {{video.snippet.title}}
+                    </a>
+                </md-card-title-text>
+            </md-card-title>
+
+            <md-card-actions layout="row" layout-align="end right">
+                <md-button>
+                    <label>{{video.statistics.likeCount | megaNumber}} </label>
+                    <md-icon md-svg-icon="assets/svg/ic_sentiment_satisfied_black_24px.svg" />
+                </md-button>
+                <md-button>
+                    <label>{{video.statistics.dislikeCount | megaNumber}} </label>
+                    <md-icon md-svg-icon="assets/svg/ic_sentiment_dissatisfied_black_24px.svg" />
+                </md-button>
+
+                <md-button>
+                    <label>{{video.statistics.viewCount | megaNumber}} </label>
+                    <md-icon md-svg-icon="/assets/svg/ic_remove_red_eye_black_24px.svg"></md-icon>
+                </md-button>
+
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
