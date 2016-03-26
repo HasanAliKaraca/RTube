@@ -74,15 +74,15 @@ app.config(['$routeProvider', '$mdThemingProvider', '$mdIconProvider', function 
     //    .accentPalette('red');
 
 
-    $routeProvider.when('/browse', { templateUrl: '/app/views/list.html', controller: 'listCtrl' });
-    $routeProvider.when('/browse/:category', { templateUrl: '/app/views/list.html', controller: 'listCtrl' });
-    $routeProvider.when('/search/:query', { templateUrl: '/app/views/list.html', controller: 'listCtrl' });
-    $routeProvider.when('/view/:id', { templateUrl: '/app/views/view.html', controller: 'viewCtrl' });
-    $routeProvider.when('/view/:id/:starttime', { templateUrl: '/app/views/view.html', controller: 'viewCtrl' });
-    $routeProvider.when('/playlist/:id', { templateUrl: '/app/views/view.html', controller: 'viewCtrl' });
-    $routeProvider.when('/playlist/:id/:start', { templateUrl: '/app/views/view.html', controller: 'viewCtrl' });
-    $routeProvider.when('/user/:username', { templateUrl: '/app/views/list.html', controller: 'listCtrl' });
-    $routeProvider.when('/user/:username/:feed', { templateUrl: '/app/views/list.html', controller: 'listCtrl' });
+    $routeProvider.when('/browse', { templateUrl: 'app/views/list.html', controller: 'listCtrl' });
+    $routeProvider.when('/browse/:category', { templateUrl: 'app/views/list.html', controller: 'listCtrl' });
+    $routeProvider.when('/search/:query', { templateUrl: 'app/views/list.html', controller: 'listCtrl' });
+    $routeProvider.when('/view/:id', { templateUrl: 'app/views/view.html', controller: 'viewCtrl' });
+    $routeProvider.when('/view/:id/:starttime', { templateUrl: 'app/views/view.html', controller: 'viewCtrl' });
+    $routeProvider.when('/playlist/:id', { templateUrl: 'app/views/view.html', controller: 'viewCtrl' });
+    $routeProvider.when('/playlist/:id/:start', { templateUrl: 'app/views/view.html', controller: 'viewCtrl' });
+    $routeProvider.when('/user/:username', { templateUrl: 'app/views/list.html', controller: 'listCtrl' });
+    $routeProvider.when('/user/:username/:feed', { templateUrl: 'app/views/list.html', controller: 'listCtrl' });
     $routeProvider.otherwise({ redirectTo: '/browse' });
 
 }]);
