@@ -1,0 +1,12 @@
+﻿<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader>Settings</md-subheader>
+    <md-list>
+        <md-item ng-repeat="item in items">
+            <md-item-content flex class="inset">
+                <md-button aria-label="{{item.name}}" ng-click="listItemClick($index)">
+                    <span>{{item.name}}</span>
+                </md-button>
+            </md-item-content>
+        </md-item>
+    </md-list>
+</md-bottom-sheet>

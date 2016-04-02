@@ -11,10 +11,10 @@
 <div layout="row" layout-wrap>
     <div flex="33" ng-repeat="video in videos">
         <md-card>
-            <a ng-href="{{getLink(video)}}">
+            <a ng-href="{{getLink(video)}}" class="md-primary">
                 <img ng-src="{{video.snippet.thumbnails.high.url}}" class="md-card-image" alt="Washed Out" style="background:black;width:100%;">
             </a>
-            <md-card-title>
+            <md-card-title layout-wrap>
                 <md-card-title-text>
                     <a ng-href="{{getLink(video)}}">
                         {{video.snippet.title}}
@@ -22,8 +22,8 @@
                 </md-card-title-text>
             </md-card-title>
 
-            <md-card-actions layout="row" layout-align="end right">
-                <md-button>
+            <md-card-actions layout="row" layout-align="end right" layout-wrap>
+                <md-button md-ink-ripple="#FF0000">
                     <label>{{video.statistics.likeCount | megaNumber}} </label>
                     <md-icon md-svg-icon="assets/svg/ic_sentiment_satisfied_black_24px.svg" />
                 </md-button>
@@ -36,8 +36,13 @@
                     <label>{{video.statistics.viewCount | megaNumber}} </label>
                     <md-icon md-svg-icon="/assets/svg/ic_remove_red_eye_black_24px.svg"></md-icon>
                 </md-button>
-
             </md-card-actions>
         </md-card>
     </div>
 </div>
+
+<style>
+    .width50 {
+        width: 50px;
+    }
+</style>
