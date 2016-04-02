@@ -1,9 +1,7 @@
 'use strict';
 
 var baseModule = angular.module('base', ['ngMaterial']);
-baseModule.controller('baseCtrl', ['$scope', '$mdSidenav', '$log', '$mdBottomSheet', function ($scope, $mdSidenav, $log, $mdBottomSheet) {
-
-    //$scope.toggleCategoriesList;
+baseModule.controller('baseCtrl', ['$scope', '$mdSidenav', '$log', '$mdBottomSheet', '$timeout', function ($scope, $mdSidenav, $log, $mdBottomSheet, $timeout) {
 
     //var sideNavCategoryListId = 'sideNavCategoryList';
     //$mdSidenav(sideNavCategoryListId).then(function (instance) {
@@ -14,30 +12,49 @@ baseModule.controller('baseCtrl', ['$scope', '$mdSidenav', '$log', '$mdBottomShe
     //    }();
     //});
 
+    /*
+    Supplies a function that will continue to operate until the time is up.
+     */
+    function debounce(func, wait, context) {
+        var timer;
+        return function debounced() {
+            var context = $scope,
+                args = Array.prototype.slice.call(arguments);
+            $timeout.cancel(timer);
+            timer = $timeout(function () {
+                timer = undefined;
+                func.apply(context, args);
+            }, wait || 10);
+        };
+    }
+
+    $scope.toggleLeft = buildDelayedToggler('sideNavCategoryList');
+    /**
+    * Build handler to open/close a SideNav; when animation finishes
+    * report completion in console
+    */
+    function buildDelayedToggler(navID) {
+        return debounce(function () {
+            $mdSidenav(navID)
+              .toggle()
+              .then(function () {
+                  $log.debug("toggle " + navID + " is done");
+              });
+        }, 200);
+    }
+
+
     $scope.showListBottomSheet = function ($event) {
         $scope.alert = '';
         $mdBottomSheet.show({
-            template:
-                '<md-bottom-sheet class="md-list md-has-header"> ' +
-                    '<md-subheader>Settings</md-subheader>' +
-                    '<md-list>' +
-                    '   <md-item ng-repeat="item in items">' +
-                    '   <md-item-content  flex class="inset">' +
-                    //'        <a flex aria-label="{{item.name}}" ng-click="listItemClick($index)">' +
-                    //'            <span class="md-inline-list-icon-label">{{ item.name }}</span>'+
-                    //'        </a> ' +
-                    '     <md-button aria-label="{{item.name}}" ng-click="listItemClick($index)">' +
-                    '         <span>{{item.name}}</span>' +
-                    '     </md-button>' +
-                    '   </md-item-content>'+
-                    '</md-item> </md-list></md-bottom-sheet>',
+            templateUrl:'app/views/settings.html', 
             controller: 'listBottomSheetCtrl',
             targetEvent: $event
         }).then(function (clickedItem) {
             //$scope.alert = clickedItem.name + ' clicked!';
         });
     };
- 
+
 }]);
 
 
